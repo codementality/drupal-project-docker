@@ -17,10 +17,10 @@ services:
       - db
 
   php:
-    image: codementality/php7.2
+    image: codementality/php7.3
     volumes:
       - ./:/var/www/html:cached # User-guided caching
-      - ./docker/php/conf.d/php.ini:/etc/php/7.2/fpm/conf.d/50-overrides.ini
+      - ./docker/php/conf.d/php.ini:/etc/php/7.3/fpm/conf.d/50-overrides.ini
     environment:
       PHP_IDE_CONFIG: "serverName=docker"
       # Switch remote_host to 127.0.0.1 for Linux.
