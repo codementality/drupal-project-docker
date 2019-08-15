@@ -1,6 +1,6 @@
 version: '3.4'
 services:
-  web:
+  drupal.test:
     hostname: ${HOSTNAME}
     image: codementality/apache2
     expose:
@@ -61,27 +61,27 @@ services:
       - d8
       - /solr-conf
     depends_on:
-      - web
+      - drupal.test
 
   mailhog:
     image: mailhog/mailhog
     ports:
       - 8025
     depends_on:
-      - web
+      - drupal.test
 
   memcached:
     image: memcached:1.5
     ports:
       - 11211
     depends_on:
-      - web
+      - drupal.test
       - php
 
   fetools:
     build: docker/fetools
     depends_on:
-      - web
+      - drupal.test
     volumes:
       - node_modules:/data/themesrc/node_modules
       - ./themesrc/config:/data/themesrc/config
@@ -96,7 +96,7 @@ services:
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
-      - web
+      - drupal.test
       - php
 
   pa11y:
@@ -104,7 +104,7 @@ services:
     volumes:
        - ./tests/pa11y/wcag2-config.json:/workspace/wcag2-config.json
     depends_on:
-      - web
+      - drupal.test
 
 volumes:
 ## persistent data volume for mysql data
