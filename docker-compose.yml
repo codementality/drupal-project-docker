@@ -12,6 +12,7 @@ services:
       - ./:/var/www/html:cached # User-guided caching      
     environment:
       WEB_ALIAS_DOMAIN: 'www.${HOSTNAME}'
+      WEB_DOCUMENT_ROOT: '/var/www/html/docroot'
     depends_on:
       - php
       - db
