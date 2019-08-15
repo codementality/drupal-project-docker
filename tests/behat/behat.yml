@@ -12,6 +12,7 @@ default:
         - "%paths.base%/features/general"
       contexts:
         - Drupal\DrupalExtension\Context\MinkContext
+        - Drupal\DrupalExtension\Context\DrupalContext
   extensions:
     Behat\MinkExtension:
       goutte:
