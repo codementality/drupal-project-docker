@@ -76,8 +76,8 @@ phpunit:  ##@testing Running Drupal Unit tests
 
 test:  ##@testing Execute all test suites
 	@make phpcs
-	@make fetest
-	@make phpunit
+	#@make fetest
+	#@make phpunit
 	@make behat
 	@make wcag2AA
 
@@ -237,7 +237,7 @@ profile-setup: #hidden target to consolidate steps needed in devinit and prodini
 	#@make import-db
 	@make initialize-db
 	#@make import-files
-	@docker-compose exec web /bin/bash -c "chmod -Rf a+w $(project_root)/docroot/sites/default/files"
+	@docker-compose exec $(PROJECT_NAME).test /bin/bash -c "chmod -Rf a+w $(project_root)/docroot/sites/default/files"
 	@make cache-reset
 
 initialize-db:
@@ -246,6 +246,7 @@ initialize-db:
 	@docker-compose exec php $(project_root)/bin/drush $(drush_alias) config-set "system.site" uuid "$(uuid)" -y
 	@docker-compose exec php $(project_root)/bin/drush $(drush_alias) ev '\Drupal::entityManager()->getStorage("shortcut_set")->load("default")->delete();'
 	@docker-compose exec php $(project_root)/bin/drush $(drush_alias) ev '\Drupal::entityManager()->getStorage("node_type")->load("article")->delete();'
+	@docker-compose exec php $(project_root)/bin/drush $(drush_alias) pm-uninstall shortcut -y
 
 # https://stackoverflow.com/a/6273809/1826109
 %: ## result when make target does not exist
