@@ -76,6 +76,7 @@ phpunit:  ##@testing Running Drupal Unit tests
 
 test:  ##@testing Execute all test suites
 	@make phpcs
+	@make scan-custom-deprecated
 	#@make fetest
 	#@make phpunit
 	@make behat
@@ -247,6 +248,11 @@ initialize-db:
 	@docker-compose exec php $(project_root)/bin/drush $(drush_alias) ev '\Drupal::entityManager()->getStorage("shortcut_set")->load("default")->delete();'
 	@docker-compose exec php $(project_root)/bin/drush $(drush_alias) ev '\Drupal::entityManager()->getStorage("node_type")->load("article")->delete();'
 	@docker-compose exec php $(project_root)/bin/drush $(drush_alias) pm-uninstall shortcut -y
+
+scan-custom-deprecated:
+	@docker-compose exec php $(project_root)/bin/drupal-check docroot/modules/custom
+	@docker-compose exec php $(project_root)/bin/drupal-check docroot/themes/custom
+	@docker-compose exec php $(project_root)/bin/drupal-check docroot/profiles/custom
 
 # https://stackoverflow.com/a/6273809/1826109
 %: ## result when make target does not exist
