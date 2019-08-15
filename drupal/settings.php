@@ -793,7 +793,7 @@ $databases['default']['default'] = [
 ];
 
 $config_directories = [
-  CONFIG_SYNC_DIRECTORY => '../config/sync';
+  CONFIG_SYNC_DIRECTORY => '../config/sync',
 ];
 
 $settings['trusted_host_patterns'] = [
