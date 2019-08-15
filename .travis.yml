@@ -39,5 +39,6 @@ script:
   - make phpcs
 #  - make fetest
 #  - make phpunit
+  - make scan-custom-deprecated
   - make behat
   - make wcag2AA
