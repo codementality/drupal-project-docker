@@ -11,6 +11,7 @@ services:
     volumes:
       - ./:/var/www/html:cached # User-guided caching      
     environment:
+      TZ: 'EST5EDT'
       WEB_ALIAS_DOMAIN: 'www.${HOSTNAME}'
       WEB_DOCUMENT_ROOT: '/var/www/html/docroot'
     depends_on:
@@ -23,13 +24,14 @@ services:
       - ./:/var/www/html:cached # User-guided caching
       - ./docker/php/conf.d/php.ini:/etc/php/7.3/fpm/conf.d/50-overrides.ini
     environment:
+      TZ: 'EST5EDT'
       PHP_IDE_CONFIG: "serverName=docker"
       # Switch remote_host to 127.0.0.1 for Linux.
-      # Switch remote_enable to 0 to disable xDebug within the container.
+      # Switch remote_enable to 0 to disable xDebug within the container.  See following two lines.
       XDEBUG_CONFIG: "remote_enable=1 remote_host=10.254.254.254"
+      #XDEBUG_CONFIG: "remote_enable=0"
       COMPOSER_MEMORY_LIMIT: -1
       WEB_ALIAS_DOMAIN: 'www.${HOSTNAME}'
-      #HOSTNAME: ${HOSTNAME}
       WEB_PHP_SOCKET: 'php:9000'
       WEB_DOCUMENT_ROOT: '/var/www/html/docroot'
     depends_on:
@@ -48,7 +50,7 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
 
-  solr:
+  solr.drupal.test:
     hostname: solr.${HOSTNAME}
     image: solr:6.6
     ports:
