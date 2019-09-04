@@ -82,13 +82,10 @@ services:
       - php
 
   fetools:
-    build: docker/fetools
+    image: codementality/fetools:latest
     depends_on:
       - drupal.test
     volumes:
-      - node_modules:/data/themesrc/node_modules
-      - ./themesrc/config:/data/themesrc/config
-      - ./themesrc/gulpfile.js:/data/themesrc/gulpfile.js
       - ./themesrc/themes:/data/themesrc/themes
       - ./docroot:/data/docroot
 
@@ -115,7 +112,4 @@ volumes:
     driver: local
 ## persistent data volume for Solr
   solr:
-    driver: local
-##$ persistent data volume for node_modules
-  node_modules:
     driver: local
